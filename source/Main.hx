@@ -22,11 +22,14 @@ import lime.graphics.Image;
 // crash handler stuff
 #if CRASH_HANDLER
 import haxe.CallStack;
-import haxe.io.Path;
 import openfl.events.UncaughtErrorEvent;
 import sys.io.Process;
 #end
-
+import haxe.io.Path;
+#if android
+import android.content.Context;
+import android.os.Build;
+#end
 class Main extends Sprite {
 	var game = {
 		width: 1280, // WINDOW width
@@ -61,6 +64,8 @@ class Main extends Sprite {
 
 	public function new() {
 		super();
+
+		Sys.setCwd(Path.addTrailingSlash(Context.getExternalFilesDir()));
 
 		if (stage != null) {
 			init();
@@ -117,7 +122,6 @@ class Main extends Sprite {
 			gc();
 		});
 
-		#if !mobile
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
@@ -125,8 +129,7 @@ class Main extends Sprite {
 		if (fpsVar != null) {
 			fpsVar.visible = ClientPrefs.data.showFPS;
 		}
-		#end
-
+		
 		#if linux
 		var icon = Image.fromFile("icon.png");
 		Lib.current.stage.window.setIcon(icon);
