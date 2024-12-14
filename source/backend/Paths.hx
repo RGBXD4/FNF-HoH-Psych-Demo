@@ -365,7 +365,7 @@ class Paths {
 			var snd:Sound = null;
 			#if sys
 			if (FileSystem.exists(filePath))
-				snd = Sound.fromFile('./' + filePath);
+				snd = Sound.fromFile(filePath);
 			#end
 			#if !sys
 			if (snd == null)
