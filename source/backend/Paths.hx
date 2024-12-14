@@ -385,7 +385,7 @@ class Paths {
 
 	#if MODS_ALLOWED
 	public inline static function mods(key:String = '') {
-		return 'mods/' + key;
+		return Sys.getCwd() + 'mods/' + key;
 	}
 
 	public inline static function modsFont(key:String) {
@@ -429,7 +429,7 @@ class Paths {
 			if (FileSystem.exists(fileToCheck))
 				return fileToCheck;
 		}
-		return 'mods/' + key;
+		return Sys.getCwd() + 'mods/' + key;
 	}
 	#end
 }
