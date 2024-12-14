@@ -187,8 +187,7 @@ class CopyState extends MusicBeatState
 	{
 		locatedFiles = OpenflAssets.list();
 		// removes unwanted assets
-		var assets = locatedFiles.filter(folder -> folder.startsWith('assets/'));
-		locatedFiles = assets.concat();
+		locatedFiles = locatedFiles.filter(folder -> folder.startsWith('assets/'));
 
 		var filesToRemove:Array<String> = [];
 		for (file in locatedFiles)
