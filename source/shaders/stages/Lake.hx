@@ -1,4 +1,4 @@
-package states.stages;
+package shaders.stages;
 
 import objects.Character;
 import openfl.display.BlendMode;
