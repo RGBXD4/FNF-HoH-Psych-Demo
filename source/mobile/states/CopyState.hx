@@ -27,10 +27,10 @@ class CopyState extends MusicBeatState
 	public static var maxLoopTimes:Int = 0;
 	public static var to:String = '';
 
-	public var loadingImage:FlxSprite;
 	public var bottomBG:FlxSprite;
 	public var loadedText:FlxText;
 	public var copyLoop:FlxAsyncLoop;
+	public var txt:FlxText;
 
 	var loopTimes:Int = 0;
 	var failedFiles:Array<String> = [];
@@ -51,17 +51,11 @@ class CopyState extends MusicBeatState
 
 			add(new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xffcaff4d));
 
-			loadingImage = new FlxSprite(0, 0, Paths.image('bro'));
-			loadingImage.setGraphicSize(0, FlxG.height);
-			loadingImage.updateHitbox();
-			loadingImage.screenCenter();
-			add(loadingImage);
-
-		Txt = new FlxText(0, 0, FlxG.width - 800, "PORTBY RGBXD4", 32);
-		Txt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		Txt.scrollFactor.set();
-		Txt.borderSize = 2;
-		add(Txt);
+		txt = new FlxText(0, 0, FlxG.width - 800, "PORTBY RGBXD4", 32);
+		txt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		txt.scrollFactor.set();
+		txt.borderSize = 2;
+		add(txt);
 
 			bottomBG = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
 			bottomBG.alpha = 0.6;
