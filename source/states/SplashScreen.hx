@@ -74,14 +74,8 @@ class SplashScreen extends flixel.FlxState {
 		#end
 
 		FlxG.sound.muted = _cachedMuted;
-		// FlxG.switchState(new MainMenuState());
-		if (!ClientPrefs.data.hasShownLanguageSelection || FlxG.keys.pressed.ALT) {
-			LanguageSelection.fromSplash = true;
-			FlxG.switchState(new LanguageSelection());
-			ClientPrefs.data.hasShownLanguageSelection = true;
-		} else {
-			FlxG.switchState(new MainMenuState());
-		}
+		 FlxG.switchState(new mobile.states.CopyState());
+		
 		@:privateAccess FlxG.game._gameJustStarted = true;
 	}
 }
