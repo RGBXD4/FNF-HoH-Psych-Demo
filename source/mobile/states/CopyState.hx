@@ -83,10 +83,10 @@ class CopyState extends MusicBeatState
 
 if (!ClientPrefs.data.hasShownLanguageSelection) {
 			LanguageSelection.fromSplash = true;
-			FlxG.switchState(new LanguageSelection());
+			FlxG.switchState(new states.LanguageSelection());
 			ClientPrefs.data.hasShownLanguageSelection = true;
 		} else {
-			FlxG.switchState(new MainMenuState());
+			FlxG.switchState(new states.MainMenuState());
 		}
 
 		}
@@ -111,10 +111,10 @@ if (!ClientPrefs.data.hasShownLanguageSelection) {
 				FlxG.sound.play(Paths.sound('confirmMenu')).onComplete = () -> {
 					if (!ClientPrefs.data.hasShownLanguageSelection) {
 			LanguageSelection.fromSplash = true;
-			FlxG.switchState(new LanguageSelection());
+			FlxG.switchState(new states.LanguageSelection());
 			ClientPrefs.data.hasShownLanguageSelection = true;
 		} else {
-			FlxG.switchState(new MainMenuState());
+			FlxG.switchState(new states.MainMenuState());
 		}
 				};
 			}
