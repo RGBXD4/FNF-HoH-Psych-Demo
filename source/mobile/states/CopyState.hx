@@ -80,7 +80,15 @@ class CopyState extends MusicBeatState
 		}
 		else
 		{
-			MusicBeatState.switchState(new states.SplashScreen());
+
+if (!ClientPrefs.data.hasShownLanguageSelection) {
+			LanguageSelection.fromSplash = true;
+			FlxG.switchState(new LanguageSelection());
+			ClientPrefs.data.hasShownLanguageSelection = true;
+		} else {
+			FlxG.switchState(new MainMenuState());
+		}
+
 		}
 
 		super.create();
@@ -101,7 +109,13 @@ class CopyState extends MusicBeatState
 				}
 				canUpdate = false;
 				FlxG.sound.play(Paths.sound('confirmMenu')).onComplete = () -> {
-					MusicBeatState.switchState(new states.SplashScreen());
+					if (!ClientPrefs.data.hasShownLanguageSelection) {
+			LanguageSelection.fromSplash = true;
+			FlxG.switchState(new LanguageSelection());
+			ClientPrefs.data.hasShownLanguageSelection = true;
+		} else {
+			FlxG.switchState(new MainMenuState());
+		}
 				};
 			}
 			if (maxLoopTimes == 0)
