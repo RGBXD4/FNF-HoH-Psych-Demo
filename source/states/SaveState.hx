@@ -95,6 +95,11 @@ class SaveState extends MenuBeatState {
 			debounce = true;
 		});
 
+		#if android
+addVirtualPad(FULL, A);
+		#end
+
+
 		super.create();
 		DataSaver.loadSaves();
 	}
