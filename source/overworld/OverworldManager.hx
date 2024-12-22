@@ -190,7 +190,7 @@ class OverworldManager extends MusicBeatState {
 		#if android
 addVirtualPad(LEFT_RIGHT, A);
 		addPadCamera();
-		end
+		#end
 
 	}
 
