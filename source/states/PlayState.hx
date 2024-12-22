@@ -792,6 +792,12 @@ class PlayState extends MusicBeatState {
 		CustomFadeTransition.nextCamera = camOther;
 		if (eventNotes.length < 1)
 			checkEventNote();
+
+		#if android
+MusicBeatState.addMobileControls();
+		MusicBeatState.mobileControls.visible = true;
+					#end
+
 	}
 
 	function set_songSpeed(value:Float):Float {
