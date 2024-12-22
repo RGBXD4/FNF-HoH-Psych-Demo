@@ -794,8 +794,8 @@ class PlayState extends MusicBeatState {
 			checkEventNote();
 
 		#if android
-addMobileControls();
-		mobileControls.visible = true;
+                addMobileControls();
+		MusicBeatState.mobileControls.visible = true;
 					#end
 
 	}
