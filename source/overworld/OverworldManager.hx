@@ -187,11 +187,6 @@ class OverworldManager extends MusicBeatState {
 
 		// switchScenery(new Shop());
 
-		#if android
-addVirtualPad(LEFT_RIGHT, A);
-		addVirtualPadCamera();
-		#end
-
 	}
 
 	public function switchScenery(scene2:BaseScene) {
