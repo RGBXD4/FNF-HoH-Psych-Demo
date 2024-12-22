@@ -186,6 +186,12 @@ class OverworldManager extends MusicBeatState {
 		// dirtmouthSlyLoop
 
 		// switchScenery(new Shop());
+
+		#if android
+addVirtualPad(LEFT_RIGHT, A);
+		addPadCamera();
+		end
+
 	}
 
 	public function switchScenery(scene2:BaseScene) {
