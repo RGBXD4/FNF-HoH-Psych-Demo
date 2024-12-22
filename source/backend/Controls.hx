@@ -133,6 +133,11 @@ class Controls {
 	private function get_RESET()
 		return justPressed('reset');
 
+    public static var checkState:Bool = false;
+    public static var CheckPress:Bool = false;
+    public static var CheckControl:Bool = false;
+    public static var CheckKeyboard:Bool = false;
+
 	// Gamepad & Keyboard stuff
 	public var keyboardBinds:Map<String, Array<FlxKey>>;
 	public var gamepadBinds:Map<String, Array<FlxGamepadInputID>>;
@@ -142,7 +147,7 @@ class Controls {
 		if (result)
 			controllerMode = false;
 
-		return result || _myGamepadJustPressed(gamepadBinds[key]) == true;
+		return result || _myGamepadJustPressed(gamepadBinds[key]) == true #if mobile || checkAndroidControl_justPressed(key) == true #end;
 	}
 
 	public function pressed(key:String) {
@@ -150,7 +155,7 @@ class Controls {
 		if (result)
 			controllerMode = false;
 
-		return result || _myGamepadPressed(gamepadBinds[key]) == true;
+		return result || _myGamepadPressed(gamepadBinds[key]) == true #if mobile || checkAndroidControl_pressed(key) == true #end;
 	}
 
 	public function justReleased(key:String) {
@@ -158,7 +163,7 @@ class Controls {
 		if (result)
 			controllerMode = false;
 
-		return result || _myGamepadJustReleased(gamepadBinds[key]) == true;
+		return result || _myGamepadJustReleased(gamepadBinds[key]) == true #if mobile || checkAndroidControl_justReleased(key) == true #end;
 	}
 
 	public var controllerMode:Bool = false;
@@ -198,6 +203,284 @@ class Controls {
 		}
 		return false;
 	}
+
+	#if android
+	
+	private function checkAndroidControl_justPressed(key:String):Bool
+	{
+	
+	    var result:Bool = false;
+	    
+	    
+	    //------------------ui
+	    if (CheckPress){
+		    if (checkState){
+    		    if (key == 'accept'){
+    		    result = (MusicBeatState.virtualPad.buttonA.justPressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'back'){
+    		    result = (MusicBeatState.virtualPad.buttonB.justPressed == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+		
+        		if (key == 'ui_up'){
+        		result = (MusicBeatState.virtualPad.buttonUp.justPressed == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'ui_down'){
+        		result = (MusicBeatState.virtualPad.buttonDown.justPressed == true);
+           		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'ui_left'){
+        		result = (MusicBeatState.virtualPad.buttonLeft.justPressed == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'ui_right'){
+        		result = (MusicBeatState.virtualPad.buttonRight.justPressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		        }
+		        }//checkState
+		    else{
+    		    if (key == 'accept'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonA.justPressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'back'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonB.justPressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+		
+    		    if (key == 'ui_up'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonUp.justPressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'ui_down'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonDown.justPressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'ui_left'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonLeft.justPressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'ui_right'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonRight.justPressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }						
+		    }//!checkState
+		}//CheckPress
+		
+		//------------------note
+		if (!CheckKeyboard){
+		if (CheckControl){
+    		if (MusicBeatState.checkHitbox){
+    		    if (key == 'note_up'){
+        		result = (MusicBeatState.mobileControls.hitbox.buttonUp.justPressed == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'note_down'){
+        		result = (MusicBeatState.mobileControls.hitbox.buttonDown.justPressed == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'note_left'){
+        		result = (MusicBeatState.mobileControls.hitbox.buttonLeft.justPressed == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'note_right'){
+        		result = (MusicBeatState.mobileControls.hitbox.buttonRight.justPressed == true);
+        		if(result) {controllerMode = true; return true;}
+    		    }
+    		}//MusicBeatState.checkHitbox
+	    }//CheckControl
+	    }//!CheckKeyboard
+	    return false;
+    }
+    
+    
+    
+    private function checkAndroidControl_pressed(key:String):Bool
+    {
+    
+    var result:Bool = false;
+    
+        //------------------ui
+	    if (CheckPress){
+		    if (checkState){
+    		    if (key == 'accept'){
+    		    result = (MusicBeatState.virtualPad.buttonA.pressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'back'){
+    		    result = (MusicBeatState.virtualPad.buttonB.pressed == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+		
+        		if (key == 'ui_up'){
+        		result = (MusicBeatState.virtualPad.buttonUp.pressed == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'ui_down'){
+        		result = (MusicBeatState.virtualPad.buttonDown.pressed == true);
+           		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'ui_left'){
+        		result = (MusicBeatState.virtualPad.buttonLeft.pressed == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'ui_right'){
+        		result = (MusicBeatState.virtualPad.buttonRight.pressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		        }
+		        }//checkState
+		    else{
+    		    if (key == 'accept'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonA.pressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'back'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonB.pressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+		
+    		    if (key == 'ui_up'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonUp.pressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'ui_down'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonDown.pressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'ui_left'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonLeft.pressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'ui_right'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonRight.pressed == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }						
+		    }//!checkState
+		}//CheckPress
+		
+		//------------------note
+		if(!CheckKeyboard){
+		if (CheckControl){
+    		if (MusicBeatState.checkHitbox){
+    		    if (key == 'note_up'){
+        		result = (MusicBeatState.mobileControls.hitbox.buttonUp.pressed == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'note_down'){
+        		result = (MusicBeatState.mobileControls.hitbox.buttonDown.pressed == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'note_left'){
+        		result = (MusicBeatState.mobileControls.hitbox.buttonLeft.pressed == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'note_right'){
+        		result = (MusicBeatState.mobileControls.hitbox.buttonRight.pressed == true);
+        		if(result) {controllerMode = true; return true;}
+    		    }
+    		}//MusicBeatState.checkHitbox
+	    }//CheckControl
+	    }//!CheckKeyboard
+        return false;
+	   // if (result) return true;
+    
+    }
+    
+    private function checkAndroidControl_justReleased(key:String):Bool
+    {
+    
+    var result:Bool = false;
+    
+        //------------------ui
+	    if (CheckPress){
+		    if (checkState){
+    		    if (key == 'accept'){
+    		    result = (MusicBeatState.virtualPad.buttonA.justReleased == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'back'){
+    		    result = (MusicBeatState.virtualPad.buttonB.justReleased == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+		
+        		if (key == 'ui_up'){
+        		result = (MusicBeatState.virtualPad.buttonUp.justReleased == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'ui_down'){
+        		result = (MusicBeatState.virtualPad.buttonDown.justReleased == true);
+           		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'ui_left'){
+        		result = (MusicBeatState.virtualPad.buttonLeft.justReleased == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'ui_right'){
+        		result = (MusicBeatState.virtualPad.buttonRight.justReleased == true);
+    		    if(result) {controllerMode = true; return true;}
+    		        }
+		        }//checkState
+		    else{
+    		    if (key == 'accept'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonA.justReleased == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'back'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonB.justReleased == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+		
+    		    if (key == 'ui_up'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonUp.justReleased == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'ui_down'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonDown.justReleased == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'ui_left'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonLeft.justReleased == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }
+    		    if (key == 'ui_right'){
+    		    result = (MusicBeatSubstate.virtualPad.buttonRight.justReleased == true);
+    		    if(result) {controllerMode = true; return true;}
+    		    }						
+		    }//!checkState
+		}//CheckPress
+		
+		//------------------note
+		if (!CheckKeyboard){
+		if (CheckControl){
+    		if (MusicBeatState.checkHitbox){
+    		    if (key == 'note_up'){
+        		result = (MusicBeatState.mobileControls.hitbox.buttonUp.justReleased == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'note_down'){
+        		result = (MusicBeatState.mobileControls.hitbox.buttonDown.justReleased == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'note_left'){
+        		result = (MusicBeatState.mobileControls.hitbox.buttonLeft.justReleased == true);
+        		if(result) {controllerMode = true; return true;}
+        		}
+        		if (key == 'note_right'){
+        		result = (MusicBeatState.mobileControls.hitbox.buttonRight.justReleased == true);
+        		if(result) {controllerMode = true; return true;}
+    		    }
+    		}//MusicBeatState.checkHitbox
+	    }//CheckControl
+	    }//!CheckKeyboard
+	    return false;
+	  //  if (result) return true;
+    
+    }
+    
+    #end
 
 	// IGNORE THESE
 	public static var instance:Controls;
