@@ -4,7 +4,12 @@ import flixel.input.gamepad.FlxGamepadButton;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.gamepad.mappings.FlxGamepadMapping;
 import flixel.input.keyboard.FlxKey;
-
+#if mobile
+import mobile.flixel.FlxButton;
+import mobile.flixel.FlxHitbox;
+import mobile.flixel.FlxVirtualPad;
+#end
+	
 class Controls {
 	// Keeping same use cases on stuff for it to be easier to understand/use
 	// I'd have removed it but this makes it a lot less annoying to use in my opinion
