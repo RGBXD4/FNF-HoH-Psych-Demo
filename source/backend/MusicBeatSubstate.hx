@@ -1,7 +1,14 @@
 package backend;
 
 import flixel.FlxSubState;
-
+#if mobile
+import mobile.MobileControls;
+import mobile.flixel.FlxVirtualPad;
+import flixel.FlxCamera;
+import flixel.input.actions.FlxActionInput;
+import flixel.util.FlxDestroyUtil;
+#end
+	
 class MusicBeatSubstate extends FlxSubState {
 	public function new() {
 		super();
@@ -22,6 +29,86 @@ class MusicBeatSubstate extends FlxSubState {
 
 	inline function get_controls():Controls
 		return Controls.instance;
+
+	#if mobile
+		var mobileControls:MobileControls;
+		var virtualPad:FlxVirtualPad;
+
+		public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode)
+		{
+		    if (virtualPad != null)
+			removeVirtualPad();
+
+			virtualPad = new FlxVirtualPad(DPad, Action);
+		    add(virtualPad);
+		    Controls.checkState = true;
+		        Controls.CheckPress = true;
+		}
+
+		public function removeVirtualPad()
+		{
+			if (virtualPad != null)
+			remove(virtualPad);
+		}
+		
+		public function noCheckPress() 
+	        {
+		        Controls.CheckPress = false;
+	        }
+
+		public function addMobileControls(DefaultDrawTarget:Bool = true)
+		{
+			if (mobileControls != null)
+			removeMobileControls();
+
+			mobileControls = new MobileControls();
+			Controls.CheckPress = true;
+			
+				checkHitbox = true;
+				checkDUO = false;
+				Controls.CheckKeyboard = false;
+				
+			var camControls:FlxCamera = new FlxCamera();
+			FlxG.cameras.add(camControls, DefaultDrawTarget);
+			camControls.bgColor.alpha = 0;
+
+			mobileControls.cameras = [camControls];
+			mobileControls.visible = false;
+			add(mobileControls);
+			Controls.CheckControl = true;
+		}
+
+		public function removeMobileControls()
+		{
+			if (mobileControls != null)
+			remove(mobileControls);
+		}
+
+		public function addVirtualPadCamera(DefaultDrawTarget:Bool = true)
+		{
+			if (virtualPad != null)
+			{
+				var camControls:FlxCamera = new FlxCamera();
+				FlxG.cameras.add(camControls, DefaultDrawTarget);
+				camControls.bgColor.alpha = 0;
+				virtualPad.cameras = [camControls];
+			}
+		}
+		#end
+
+		override function destroy()
+		{
+
+			super.destroy();
+
+			#if mobile
+			if (virtualPad != null)
+			virtualPad = FlxDestroyUtil.destroy(virtualPad);
+
+			if (mobileControls != null)
+			mobileControls = FlxDestroyUtil.destroy(mobileControls);
+			#end
+		}
 
 	override function update(elapsed:Float) {
 		// everyStep();
