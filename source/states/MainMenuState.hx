@@ -130,6 +130,12 @@ class MainMenuState extends MenuBeatState {
 
 		changeItem();
 
+		#if android
+addVirtualPad(UP_DOWN, A);
+#end
+
+
+
 		super.create();
 	}
 
