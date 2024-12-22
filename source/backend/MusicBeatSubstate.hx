@@ -2,7 +2,6 @@ package backend;
 
 import flixel.FlxSubState;
 #if mobile
-import mobile.MobileControls;
 import mobile.flixel.FlxVirtualPad;
 import flixel.FlxCamera;
 import flixel.input.actions.FlxActionInput;
@@ -31,22 +30,22 @@ class MusicBeatSubstate extends FlxSubState {
 		return Controls.instance;
 
 	#if mobile
-		public static var mobileControls:MobileControls;
 		public static var virtualPad:FlxVirtualPad;
 
 		public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode)
 		{
-		    if (virtualPad != null)
+			if (virtualPad != null)
 			removeVirtualPad();
 
 			virtualPad = new FlxVirtualPad(DPad, Action);
-		    add(virtualPad);
-		    Controls.checkState = true;
-		        Controls.CheckPress = true;
+			add(virtualPad);
+			Controls.checkState = false;
+		    Controls.CheckPress = true;
 		}
 
 		public function removeVirtualPad()
 		{
+
 			if (virtualPad != null)
 			remove(virtualPad);
 		}
@@ -55,34 +54,6 @@ class MusicBeatSubstate extends FlxSubState {
 	        {
 		        Controls.CheckPress = false;
 	        }
-
-		public function addMobileControls(DefaultDrawTarget:Bool = true)
-		{
-			if (mobileControls != null)
-			removeMobileControls();
-
-			mobileControls = new MobileControls();
-			Controls.CheckPress = true;
-			
-				checkHitbox = true;
-				checkDUO = false;
-				Controls.CheckKeyboard = false;
-				
-			var camControls:FlxCamera = new FlxCamera();
-			FlxG.cameras.add(camControls, DefaultDrawTarget);
-			camControls.bgColor.alpha = 0;
-
-			mobileControls.cameras = [camControls];
-			mobileControls.visible = false;
-			add(mobileControls);
-			Controls.CheckControl = true;
-		}
-
-		public function removeMobileControls()
-		{
-			if (mobileControls != null)
-			remove(mobileControls);
-		}
 
 		public function addVirtualPadCamera(DefaultDrawTarget:Bool = true)
 		{
@@ -98,15 +69,11 @@ class MusicBeatSubstate extends FlxSubState {
 
 		override function destroy()
 		{
-
 			super.destroy();
 
 			#if mobile
 			if (virtualPad != null)
 			virtualPad = FlxDestroyUtil.destroy(virtualPad);
-
-			if (mobileControls != null)
-			mobileControls = FlxDestroyUtil.destroy(mobileControls);
 			#end
 		}
 
