@@ -28,6 +28,8 @@ class MusicBeatState extends FlxUIState {
 		return Controls.instance;
 	}
 
+	public static var checkHitbox:Bool = false;
+
 	#if mobile
 		public static var mobileControls:MobileControls;
 		public static var virtualPad:FlxVirtualPad;
@@ -63,7 +65,6 @@ class MusicBeatState extends FlxUIState {
 			Controls.CheckPress = true;
 			
 				checkHitbox = true;
-				checkDUO = false;
 				Controls.CheckKeyboard = false;
 				
 			var camControls:FlxCamera = new FlxCamera();
