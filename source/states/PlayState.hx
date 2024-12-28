@@ -786,17 +786,17 @@ class PlayState extends MusicBeatState {
 				cache.kill();
 		});*/
 
+#if android
+                addMobileControls();
+		MusicBeatState.mobileControls.visible = true;
+					#end
+
 		super.create();
 		Paths.clearUnusedMemory();
 
 		CustomFadeTransition.nextCamera = camOther;
 		if (eventNotes.length < 1)
 			checkEventNote();
-
-		#if android
-                addMobileControls();
-		MusicBeatState.mobileControls.visible = true;
-					#end
 
 	}
 
