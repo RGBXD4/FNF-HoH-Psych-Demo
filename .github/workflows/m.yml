@@ -8,7 +8,7 @@ on:
   push:
     branches: [ psych-bad-demo ]
   pull_request:
-    branches: [ main ]
+    branches: [ psych-bad-demo ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
